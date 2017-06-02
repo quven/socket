@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+</head>
+<body>
+
+<input name="name"><input type="button" value="连接" onclick="connect();"><br>
+<input name="msg"><input type="button" value="发言" onclick="send();">
+<div id="show"></div>
+
+</body>
+</html>
+
+<script>
+    var ws;
+
+    /**
+     * 连接
+     */
+    function connect() {
+        if (ws) {
+            return;
+        }
+
+        var name = document.getElementsByName("name")[0];
+        if (!name.value) {
+            alert('请输入名称！');
+            name.focus();
+            return;
+        }
+
+        ws = new WebSocket("ws://192.168.112.51:1234");
+        ws.onopen = function () {
+            //发送登录信息
+            var data = '{"type":"login","name":"' + name.value + '"}';
+            ws.send(data);
+        };
+        ws.onmessage = onmessage;
+    }
+
+    /**
+     * 接收信息
+     */
+    function onmessage(e) {
+        //var data = eval("(" + e.data + ")");
+        var data = e.data;
+        //显示
+        var show = document.getElementById("show");
+        show.innerHTML += data + "<br>";
+    }
+
+    /**
+     * 发言
+     */
+    function send() {
+        if (!ws) {
+            alert('请先连接！');
+            return;
+        }
+
+        var msg = document.getElementsByName("msg")[0];
+        if (!msg.value) {
+            alert('请输入内容！');
+            msg.focus();
+            return;
+        }
+
+        //发送
+        var data = '{"type":"say","msg":"' + msg.value + '"}';
+        ws.send(data);
+        //清空
+        msg.value = "";
+    }
+</script>

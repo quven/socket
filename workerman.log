@@ -1,0 +1,6 @@
+2017-06-01 17:18:52 pid:19368 Workerman[test/socket/app/start.php] start in DEBUG mode
+2017-06-01 17:20:48 pid:19368 Workerman[start.php] Stopping ...
+2017-06-01 17:20:48 pid:19368 Workerman[start.php] has been stopped
+2017-06-01 17:34:47 pid:19565 Workerman[test/socket/app/start.php] start in DEBUG mode
+2017-06-01 19:45:40 pid:19565 Workerman[start.php] Stopping ...
+2017-06-01 19:45:40 pid:19565 Workerman[start.php] has been stopped
